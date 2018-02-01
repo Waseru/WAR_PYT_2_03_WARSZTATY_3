@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <form action="" method="POST">{% csrf_token %}
+        <h1>Dodaj salę konferencyjną</h1>
+        <label>Nazwa:
+        <input name="name">
+        </label>
+        <label>Liczba miejsc:
+            <input min="0" name="num_seats">
+        </label>
+        <label>Rzutnik:
+            <input name="has_beamer">
+        </label>
+
+        <input type="submit" value="Dodaj salę"><br>
+        <a href="/rooms/">Powrót do listy sal konferencyjnych</a>
+
+    </form>
+</body>
+</html>
