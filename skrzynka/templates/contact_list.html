@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Lista kontaktów</h1>
+<table>
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for contact in contact_list %}
+    <tr>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.surname }}</td>
+        <td><button type="input" name="delete_contact">Usuń Kontakt</button></td>
+        <td><a href="{% url 'modify_contact' contact_id=contact.id%}"><button type="input" name="edit_contact">Edytuj Kontakt</button></a></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
