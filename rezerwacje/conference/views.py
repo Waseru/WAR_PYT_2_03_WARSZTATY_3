@@ -147,13 +147,44 @@ class DeleteRoom(View):
 
 
 class Search(View):
-    def get(self, request, name, num_seats, has_beamer):
-        name_search = name
-        num_seats_search = num_seats
-        has_beamer_search= has_beamer
+    def get(self, request):
+        # name_search = request.GET['name']
+        # num_seats_search = request.GET['num_seats']
+        # has_beamer_search= request.GET['has_beamer']
+
+        if request.GET['has_beamer'] == 'tak':
+            beamer = Q(has_beamer=True)
+        elif request.GET['has_beamer'] == 'nie':
+            beamer = Q(has_beamer=False)
+        elif request.GET['has_beamer'] == '':
+            beamer = Q()
+        else:
+            return HttpResponse('Dostępność rzutnika oznaczać jako, "tak"/"nie" lub zostawić puste!')
+
+        if request.GET['name'] != '':
+            name = Q(name=request.GET['name'])
+        else:
+            name = Q()
+
+        if request.GET['num_seats'] != '':
+            seats = Q(num_seats=request.GET['num_seats'])
+        else:
+            seats = Q()
+
+
+
+        search_bar = Room.objects.filter(
+            name, seats, beamer)
+
+        # if search_bar is False:
+        #     return HttpResponse('chuja tam')
+        # else:
+        #     return render(request, 'search_room.html', {'search_bar': search_bar})
 
         #return render_to_response('search_room.html')
 
-        return render(request, 'search_room.html', {"name_search": name_search,
-                                                    "num_seats_search": num_seats_search,
-                                                    "has_beamer_search": has_beamer_search,})
+        # return render(request, 'search_room.html', {"name_search": name_search,
+        #                                             "num_seats_search": num_seats_search,
+        #                                             "has_beamer_search": has_beamer_search, })
+
+        return render(request, 'search_room.html', {'search_bar': search_bar})

@@ -3,8 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        table.greyGridTable {
+  border: 2px solid #FFFFFF;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.greyGridTable td, table.greyGridTable th {
+  border: 1px solid #FFFFFF;
+  padding: 3px 4px;
+}
+table.greyGridTable tbody td {
+  font-size: 13px;
+}
+table.greyGridTable td:nth-child(even) {
+  background: #EBEBEB;
+}
+table.greyGridTable thead {
+  background: #FFFFFF;
+  border-bottom: 4px solid #333333;
+}
+table.greyGridTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  border-left: 2px solid #333333;
+}
+table.greyGridTable thead th:first-child {
+  border-left: none;
+}
+
+table.greyGridTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  border-top: 4px solid #333333;
+}
+table.greyGridTable tfoot td {
+  font-size: 14px;
+}
+    </style>
 </head>
 <body>
-<p>Dzien dobry</p>
+
+<h1 align="center">Wyszukane sale</h1>
+<table class="greyGridTable">
+    <tr>
+        <th>Nazwa sali</th>
+        <th>Pojemność</th>
+        <th>Dostępność rzutnika</th>
+        <th>Wolna rezerwacja</th>
+    </tr>
+    {% for search in search_bar %}
+    <tr>
+        <td>{{ search.name }}</td>
+        <td>{{ search.num_seats }}</td>
+        <td>{{ search.has_beamer }}</td>
+        <td>
+            {% if search.is_currently_booked %}
+            zajęta
+        {% else %}
+            wolna - <a href="{% url 'reservation' room_id=search.id %}">rezerwuj</a>
+        {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<p><a href="/rooms/">Powrót do listy sal konferencyjnych</a></p>
 </body>
 </html>
